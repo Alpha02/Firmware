@@ -1110,13 +1110,14 @@ int preflight_check(struct vehicle_status_s *status, orb_advert_t *mavlink_log_p
 			    checkAirspeed, (status->rc_input_mode == vehicle_status_s::RC_IN_MODE_DEFAULT),
 			    arm_requirements & ARM_REQ_GPS_BIT, true, status->is_vtol, reportFailures, prearm, time_since_boot);
 
-	if (!status_flags->circuit_breaker_engaged_usb_check && status_flags->usb_connected && prearm) {
-		preflight_ok = false;
+    if (!status_flags->circuit_breaker_engaged_usb_check && status_flags->usb_connected && prearm) {
+                //preflight_ok = false;
 
-		if (reportFailures) {
-			mavlink_log_critical(mavlink_log_pub, "ARMING DENIED: Flying with USB is not safe");
-		}
-	}
+        if (reportFailures) {
+                    //mavlink_log_critical(mavlink_log_pub, "ARMING DENIED: Flying with USB is not safe");
+                    mavlink_log_critical(mavlink_log_pub, "WARNING: Flying with USB is soooo cool!");
+                }
+    }
 
 	if (!status_flags->circuit_breaker_engaged_power_check && battery->warning >= battery_status_s::BATTERY_WARNING_LOW) {
 		preflight_ok = false;
